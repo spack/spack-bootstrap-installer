@@ -1,10 +1,16 @@
 CMakeScripts
+CMakeFiles
+CMakeCache.txt
 Testing
 Makefile
 cmake_install.cmake
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
+Python-3.9.0-win64
+spack-0.16.0
+*.tar.xz
+*.tar.gz
 _deps
 .vs
 out
