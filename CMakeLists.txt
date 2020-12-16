@@ -1,9 +1,8 @@
-﻿# CMakeList.txt : CMake project for python-git-build, include source and define
-# project specific logic here.
-#
+﻿# WIX INSTALLER GENERATOR FOR SPACK ON WINDOWS
+# 
 cmake_minimum_required (VERSION 3.13)
 project(spack_installer)
-
+include(CPackComponent)
 set(PYTHON_VERSION "3.9.0" CACHE STRING "Version of Python to build.")
 set(SPACK_VERSION "0.16.0" CACHE STRING "Version of Spack to build.")
 set(PY_DOWNLOAD_LINK "https://www.paraview.org/files/dependencies")
@@ -11,6 +10,7 @@ set(PY_FILENAME "Python-${PYTHON_VERSION}-win64.tar.xz")
 set(SPACK_DL "https://github.com/spack/spack/releases/download/v${SPACK_VERSION}")
 set(SPACK_FILENAME "spack-${SPACK_VERSION}.tar.gz")
 
+#PYTHON DOWLOAD AND EXTRACTION-----------------------------------
 file(DOWNLOAD "${PY_DOWNLOAD_LINK}/${PY_FILENAME}" 
 	"${CMAKE_CURRENT_BINARY_DIR}/${PY_FILENAME}"
 	STATUS download_status 
@@ -31,6 +31,7 @@ if(NOT res EQUAL 0)
 endif()
 message(STATUS "Extracted ${PY_FILENAME}.")
 
+#SPACK DOWNLOAD AND EXTRACTION---------------------------------------
 file(DOWNLOAD "${SPACK_DL}/${SPACK_FILENAME}" 
 	"${CMAKE_CURRENT_BINARY_DIR}/${SPACK_FILENAME}"
 	STATUS download_status 
@@ -50,8 +51,18 @@ if(NOT res EQUAL 0)
 endif()
 message(STATUS "Extracted ${SPACK_FILENAME}.")
 
-install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/spack-${SPACK_VERSION}/" DESTINATION "spack-${SPACK_VERSION}")
-install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/Python-${PYTHON_VERSION}-win64/" DESTINATION "Python-${PYTHON_VERSION}")
+#INSTALLATION COMMANDS---------------------------------------------------
+install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/spack-${SPACK_VERSION}/" DESTINATION "spack-${SPACK_VERSION}" COMPONENT Spack)
+install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/Python-${PYTHON_VERSION}-win64/" DESTINATION "Python-${PYTHON_VERSION}"  COMPONENT Python)
+#Components are required for some WIX specific functions
+cpack_add_component(Python
+	DISPLAY_NAME "Python ${PYTHON_VERSION}"
+	DESCRIPTION "Python ${PYTHON_VERSION} for Windows"
+	REQUIRED)
+cpack_add_component(Spack
+	DISPLAY_NAME "Spack ${SPACK_VERSION}"
+	DESCRIPTION "Spack Package Manager for Windows"
+	REQUIRED)
 
 set(CPACK_PACKAGE_NAME "Spack")
 set(CPACK_PACKAGE_VENDOR "Lawrence Livermore National Laboratories")
@@ -63,7 +74,9 @@ set(CPACK_PACKAGE_HOMEPAGE_URL "https://spack.io")
 set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
 set(CPACK_PACKAGE_ICON "images/spack-logo.bmp")
 set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE-APACHE.txt")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_RESOURCE_FILE_WELCOME "${CMAKE_CURRENT_SOURCE_DIR}/NOTICE")
 set(CPACK_GENERATOR "WIX")
+set(CPACK_WIX_UI_BANNER "images/banner493x58.bmp")
+set(CPACK_WIX_PATCH_FILE "${CMAKE_CURRENT_SOURCE_DIR}/patch.xml")
 include(CPack)

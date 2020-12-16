@@ -14,3 +14,4 @@ spack-0.16.0
 _deps
 .vs
 out
+build

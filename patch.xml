@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CPackWiXPatch>
+	<CPackWiXFragment Id="CM_C_Python">
+		<Component Id="Python">
+			<Environment
+			  Id="PATH"
+			  Name="PATH"
+			  Value="[INSTALLDIR]/Python-3.9.0"
+			  Permanent="no"
+			  Part="first"
+			  Action="set"
+			  System="yes" />
+		</Component>
+	</CPackWiXFragment>
+</CPackWiXPatch>
