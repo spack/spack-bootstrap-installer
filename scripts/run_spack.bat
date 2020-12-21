@@ -1,2 +1,3 @@
 @ECHO OFF
-%comspec% /k spack_cmd.bat
+set spackinstdir = %~dp0
+%comspec% /k "%~dp0\scripts\spack_cmd"

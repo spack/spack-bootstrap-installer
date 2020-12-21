@@ -1,40 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Fragment>
-		<Feature Id="Application" Title="Spack" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-			<ComponentRef Id="ProgramMenuDir"/>
-		</Feature>
-	</Fragment>
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="DesktopFolder" Name="Desktop" />
-			<Directory Id="ProgramMenuFolder" Name="Programs">
-				<Directory Id="ApplicationProgramsFolder" Name="Spack">
-					<Component Id="ProgramMenuDir" Guid="*">
-						<RemoveFolder Id="ProgramMenuDir" On="uninstall"/>
-						<RegistryValue Root="HKCU" Key="Software\LLNL\Spack"
-									   Type="integer" Value="1" Name="installed" KeyPath="yes" />
-					</Component>
-				</Directory>
-			</Directory>
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="SpackExample" />
+		<DirectoryRef Id="TARGETDIR">
+		<Directory Id="DesktopFolder" Name="Desktop" />
+		<Directory Id="ProgramMenuFolder" Name="Programs">
+			<Directory Id="ApplicationProgramsFolder" Name="Spack">
+				<Component Id="ProgramMenuDir" Guid="*">
+					<RemoveFolder Id="ProgramMenuDir" On="uninstall"/>
+					<RegistryValue Root="HKMU" Key="Software\LLNL\Spack"
+								   Type="integer" Value="1" Name="installed" KeyPath="yes" />
+				</Component>
 			</Directory>
 		</Directory>
+		</DirectoryRef>
 	</Fragment>
 	<Fragment>
-		<!-- Step 2: Add the shortcut to your installer package -->
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+		<!-- Add the shortcut to installer package -->
+		<ComponentGroup Id="ProductComponents" Directory="INSTALL_ROOT">
 			<Component Id="ApplicationShortcut" Guid="*">
-				<File Source="scripts/run_spack.bat" KeyPath="yes">
+				<File Source="..\scripts\run_spack.bat" KeyPath="yes">
 				<Shortcut Id="SpackStartMenuShortcut"
 						  Directory="DesktopFolder"
+						  Advertise="yes"
 						  Name="Spack Package Manager"
 						  Description="Spack package manager"
-                          WorkingDirectory="INSTALLFOLDER"
+                          WorkingDirectory="INSTALL_ROOT"
 						  Icon="icon1.ico">
-					<Icon Id="icon1.ico" SourceFile="images/spack-logo.ico" />
+					<Icon Id="icon1.ico" SourceFile="..\images\spack-logo.ico" />
 				</Shortcut>
 			</File>
 			</Component>
