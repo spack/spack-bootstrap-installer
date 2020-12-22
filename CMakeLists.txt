@@ -32,18 +32,20 @@ endif()
 message(STATUS "Extracted ${PY_FILENAME}.")
 
 #SPACK DOWNLOAD AND EXTRACTION---------------------------------------
-file(DOWNLOAD "${SPACK_DL}/${SPACK_FILENAME}" 
-	"${CMAKE_CURRENT_BINARY_DIR}/${SPACK_FILENAME}"
-	STATUS download_status 
-	EXPECTED_HASH "SHA256=064b2532c70916c7684d4c7c973416ac32dd2ea15f5c392654c75258bfc8c6c2"
-)
-list(GET download_status 0 res)
-if(res)
-	list(GET download_status 1 err)
-	message(FATAL_ERROR "Failed to download ${SPACK_FILENAME} : ${err}")
-endif()
-message(STATUS "Successfully downloaded ${SPACK_FILENAME}")
-execute_process(COMMAND ${CMAKE_COMMAND} -E tar xfz "${CMAKE_CURRENT_BINARY_DIR}/${SPACK_FILENAME}"
+#NOTE: Commented code is for download of official releases of Spack
+
+#file(DOWNLOAD "${SPACK_DL}/${SPACK_FILENAME}" 
+#	"${CMAKE_CURRENT_BINARY_DIR}/${SPACK_FILENAME}"
+#	STATUS download_status 
+#	EXPECTED_HASH "SHA256=064b2532c70916c7684d4c7c973416ac32dd2ea15f5c392654c75258bfc8c6c2"
+#)
+#list(GET download_status 0 res)
+#if(res)
+#	list(GET download_status 1 err)
+#	message(FATAL_ERROR "Failed to download ${SPACK_FILENAME} : ${err}")
+#endif()
+#message(STATUS "Successfully downloaded ${SPACK_FILENAME}")
+execute_process(COMMAND ${CMAKE_COMMAND} -E tar xfz "${CMAKE_CURRENT_SOURCE_DIR}/spack-windows.tar.gz"
 				WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 				RESULT_VARIABLE res)
 if(NOT res EQUAL 0)
@@ -52,7 +54,7 @@ endif()
 message(STATUS "Extracted ${SPACK_FILENAME}.")
 
 #INSTALLATION COMMANDS---------------------------------------------------
-install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/spack-${SPACK_VERSION}/" DESTINATION "spack-${SPACK_VERSION}")
+install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/spack-windows/" DESTINATION "spack-${SPACK_VERSION}")
 install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/Python-${PYTHON_VERSION}-win64/" DESTINATION "Python-${PYTHON_VERSION}")
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/scripts/" DESTINATION "scripts")
 

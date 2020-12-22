@@ -32,4 +32,12 @@
 			</Component>
 		</ComponentGroup>
 	</Fragment>
+	<Fragment>
+		<CustomAction Id="BatchScript" Directory="INSTALL_ROOT" Execute="deferred" 
+					  Impersonate="yes" Return="check" ExeCommand="..\scripts\setup.bat"/>
+		<InstallExecuteSequence>
+			<Custom Action="BatchScript" After="InstallFiles" ><![CDATA[ REMOVE<>ALL]]></Custom>
+		</InstallExecuteSequence>
+		
+	</Fragment>
 </Wix>
