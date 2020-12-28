@@ -22,7 +22,7 @@
 		<!-- Add the shortcut to installer package -->
 		<ComponentGroup Id="ProductComponents" Directory="INSTALL_ROOT">
 			<Component Id="ApplicationShortcut" Guid="*">
-				<File Source="..\scripts\run_spack.bat" KeyPath="yes">
+				<File Source="..\scripts\spack_cmd.bat" KeyPath="yes">
 				<Shortcut Id="SpackStartMenuShortcut"
 						  Directory="DesktopFolder"
 						  Advertise="yes"
