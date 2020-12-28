@@ -15,6 +15,10 @@
 		</DirectoryRef>
 	</Fragment>
 	<Fragment>
+		<Icon Id="icon.ico" SourceFile="..\images\spack-logo.ico"/>
+		<Property Id="ARPPRODUCTICON" Value="icon.ico" />
+	</Fragment>
+	<Fragment>
 		<!-- Add the shortcut to installer package -->
 		<ComponentGroup Id="ProductComponents" Directory="INSTALL_ROOT">
 			<Component Id="ApplicationShortcut" Guid="*">
@@ -31,13 +35,5 @@
 			</File>
 			</Component>
 		</ComponentGroup>
-	</Fragment>
-	<Fragment>
-		<CustomAction Id="BatchScript" Directory="INSTALL_ROOT" Execute="deferred" 
-					  Impersonate="yes" Return="check" ExeCommand="..\scripts\setup.bat"/>
-		<InstallExecuteSequence>
-			<Custom Action="BatchScript" After="InstallFiles" ><![CDATA[ REMOVE<>ALL]]></Custom>
-		</InstallExecuteSequence>
-		
 	</Fragment>
 </Wix>
