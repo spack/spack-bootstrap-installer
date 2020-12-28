@@ -15,14 +15,14 @@
 		</DirectoryRef>
 	</Fragment>
 	<Fragment>
-		<Icon Id="icon.ico" SourceFile="..\images\spack-logo.ico"/>
+		<Icon Id="icon.ico" SourceFile="images\spack-logo.ico"/>
 		<Property Id="ARPPRODUCTICON" Value="icon.ico" />
 	</Fragment>
 	<Fragment>
 		<!-- Add the shortcut to installer package -->
 		<ComponentGroup Id="ProductComponents" Directory="INSTALL_ROOT">
 			<Component Id="ApplicationShortcut" Guid="*">
-				<File Source="..\scripts\run_spack.bat" KeyPath="yes">
+				<File Source="scripts\spack_cmd.bat" KeyPath="yes">
 				<Shortcut Id="SpackStartMenuShortcut"
 						  Directory="DesktopFolder"
 						  Advertise="yes"
@@ -30,7 +30,7 @@
 						  Description="Spack package manager"
                           WorkingDirectory="INSTALL_ROOT"
 						  Icon="icon1.ico">
-					<Icon Id="icon1.ico" SourceFile="..\images\spack-logo.ico" />
+					<Icon Id="icon1.ico" SourceFile="images\spack-logo.ico" />
 				</Shortcut>
 			</File>
 			</Component>
