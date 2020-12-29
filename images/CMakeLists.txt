@@ -1,0 +1,4 @@
+if(NOT ${CMAKE_BINARY_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+	FILE(COPY spack-logo.ico DESTINATION "${CMAKE_BINARY_DIR}/images")
+	FILE(COPY spack-logo.bmp DESTINATION "${CMAKE_BINARY_DIR}/images")
+endif()
