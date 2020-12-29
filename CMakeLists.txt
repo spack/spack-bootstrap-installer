@@ -9,8 +9,10 @@ set(PY_DOWNLOAD_LINK "https://www.paraview.org/files/dependencies")
 set(PY_FILENAME "Python-${PYTHON_VERSION}-win64.tar.xz")
 set(SPACK_DL "https://github.com/spack/spack/releases/download/v${SPACK_VERSION}")
 set(SPACK_FILENAME "spack-${SPACK_VERSION}.tar.gz")
-add_subdirectory(scripts)
 add_subdirectory(images)
+configure_file("spack_cmd.bat.in" "scripts/spack_cmd.bat")
+
+
 #PYTHON DOWLOAD AND EXTRACTION-----------------------------------
 file(DOWNLOAD "${PY_DOWNLOAD_LINK}/${PY_FILENAME}" 
 	"${CMAKE_CURRENT_BINARY_DIR}/${PY_FILENAME}"
@@ -58,8 +60,7 @@ message(STATUS "Extracted ${SPACK_FILENAME}.")
 #INSTALLATION COMMANDS---------------------------------------------------
 install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/spack-windows/" DESTINATION "spack-${SPACK_VERSION}")
 install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/Python-${PYTHON_VERSION}-win64/" DESTINATION "Python-${PYTHON_VERSION}")
-install(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/scripts/" DESTINATION "scripts")
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/images/" DESTINATION "images")
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/scripts/" DESTINATION "scripts")
 
 set(CPACK_PACKAGE_NAME "Spack")
 set(CPACK_PACKAGE_VENDOR "Lawrence Livermore National Laboratories")
