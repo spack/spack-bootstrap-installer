@@ -32,6 +32,11 @@
 						  Icon="icon1.ico">
 					<Icon Id="icon1.ico" SourceFile="images\spack-logo.ico" />
 				</Shortcut>
+					<Shortcut Id="startMenuShotcut" Directory="ApplicationProgramsFolder"
+						Name="Spack Package Manager" WorkingDirectory="INSTALL_ROOT"
+						Icon="icon2.ico" IconIndex="0" Advertise="yes">
+						<Icon Id="icon2.ico" SourceFile="images\spack-logo.ico" />
+					</Shortcut>
 			</File>
 			</Component>
 		</ComponentGroup>
